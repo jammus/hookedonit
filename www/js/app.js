@@ -1,6 +1,7 @@
 (function() {
     var genre = 'indie',
-        candidates = { };
+        candidates = { },
+        currentSound = null;
 
     SC.initialize({
         client_id: '4e4115330f6a3238d4631409185ec7a5'
@@ -26,16 +27,23 @@
         var track = candidates[id];
         $('.' + id + ' img').addClass('playing');
         SC.stream(track.uri, function(sound) {
-            sound.play();
+            currentSound = sound;
+            currentSound.play();
             setTimeout(function() {
-                sound.stop();
-                $('.' + id + ' img').removeClass('playing');
+                stopPlaying();
                 callback && callback();
             }, 10000);
         });
     }
 
+    function stopPlaying() {
+        currentSound && currentSound.stop();
+        currentSound = null;
+        $('.track img').removeClass('playing');
+    }
+
     function vote(event) {
+        stopPlaying();
         var element = $(event.currentTarget),
             id = element.data('track'),
             track = candidates[id];

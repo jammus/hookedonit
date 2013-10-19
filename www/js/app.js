@@ -34,19 +34,8 @@
     }
 
     function loadImage(id) {
-        lastfm.track.search(
-            { track: candidates[id].title },
-            {
-                success: function(data) {
-                    var results = data.results.trackmatches.track;
-                    var imageUrl = candidates[id].artwork_url;
-                    if (results.length && results[0].image && results[0].image[3]) {
-                        imageUrl = results[0].image[3]['#text'];
-                    }
-                    $('.' + id + ' img').attr('src', imageUrl);
-                }
-            }
-        );
+        var imageUrl = candidates[id].artwork_url || '/img/no-art.svg';
+        $('.' + id + ' img').attr('src', imageUrl);
     }
 
     function play(id, callback) {

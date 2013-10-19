@@ -62,7 +62,7 @@
             playTimeout = setTimeout(function() {
                 stopPlaying();
                 callback && callback();
-            }, 15000);
+            }, 10000);
         });
     }
 

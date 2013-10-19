@@ -13,6 +13,10 @@
     });
 
     $('body').on('click', '.vote', vote);
+    $('body').on('click', '.replay', function(event) {
+        playTracks();
+        event.preventDefault();
+    });
 
     $('select').change(function() {
         $(this).parent('form').submit();
@@ -29,8 +33,13 @@
             $('.second .title').html(candidates['second'].title);
             loadImage('first');
             loadImage('second');
-            play('first', function() { play('second'); });
+            playTracks();
         });
+    }
+
+    function playTracks() {
+        stopPlaying();
+        play('first', function() { play('second'); });
     }
 
     function loadImage(id) {

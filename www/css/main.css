@@ -54,6 +54,26 @@ h6 {
    padding-top: 30px;
 }
 
+.controls {
+    position: relative;
+    display: inline-block;
+    padding-top: 99px;
+}
+
+.replay {
+    display: inline-block;
+    background-image: url('/img/replay.svg');
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 0;
+    padding-top: 40px;
+    overflow: hidden;
+    vertical-align: middle;
+    border: 4px solid #0c3146;
+    border-radius: 50%;
+    background-position: center;
+}
+
 .headline {
     font-size: 3.75em; /*60px*/
     font-weight: 300;fpr
@@ -76,7 +96,7 @@ h6 {
     display: inline-block;
     //width: 400px;
     text-align: center;
-    max-width: 390px;
+    max-width: 360px;
     vertical-align: top;
 }
 
@@ -94,7 +114,7 @@ h6 {
 }
 
 .second img {
-    right: 85px;
+    right: 115px;
 }
 
 .block {
@@ -139,7 +159,7 @@ h6 {
 
 .second .vote {
     background-image: url('/img/song-right.svg');
-    background-position: 70px;
+    background-position: 40px;
 }
 
 .cf:before,

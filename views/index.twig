@@ -21,7 +21,9 @@
                         candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
 
                         $('.first .title').html(candidates['first'].title);
+                        $('.first img').attr('src', candidates['first'].artwork_url);
                         $('.second .title').html(candidates['second'].title);
+                        $('.second img').attr('src', candidates['second'].artwork_url);
                     });
                 }
 
@@ -73,19 +75,21 @@
             })();
         </script>
         <div class="fight">
-            <span class="first">
+            <div class="first">
+                <img src="" />
                 <span class="title">
                 </span>
                 [<a class="play" data-track="first" href="#">play</a>]
                 [<a class="vote" data-track="first" href="#">vote</a>]
-            </span>
+            </div>
             vs
-            <span class="second">
+            <div class="second">
+                <img src="" />
                 <span class="title">
                 </span>
                 [<a class="play" data-track="second" href="#">play</a>]
                 [<a class="vote" data-track="second" href="#">vote</a>]
-            </span>
+            </div>
         </div>
         <div class="votes">
         </div>

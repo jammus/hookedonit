@@ -20,8 +20,21 @@ $app->get('/', function (Application $app) {
 
 $app->post('/vote', function (Request $request, Application $app) {
     $genre = $request->get('genre');
-    $track = $request->get('track');
-    return $app->json(array($genre, $track));
+    $id = $request->get('id');
+    $title = $request->get('title');
+    $uri = $request->get('uri');
+    $votes = array();
+    if ( ! isset($votes[$id])) {
+        $entry = array(
+            'id' => $id,
+            'title' => $title,
+            'uri' => $uri,
+            'votes' => 0
+        );
+        $votes[$id] = $entry;
+    }
+    $votes[$id]['votes']++;
+    return $app['twig']->render('votes.twig', array('votes' => $votes));
 });
 
 $app->run();

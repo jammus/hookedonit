@@ -55,26 +55,39 @@
                     $.ajax('/vote', {
                         type: 'POST',
                         data: {
-                            track: track.id,
+                            id: track.id,
+                            uri: track.uri,
+                            title: track.title,
                             genre: genre
                         }, 
-                        complete: nextTrack
+                        success: function(response) {
+                            showVotes(response);
+                            nextTrack();
+                        }
                     });
+                }
+
+                function showVotes(response) {
+                    $('.votes').html(response);
                 }
             })();
         </script>
-        <span class="first">
-            <span class="title">
+        <div class="fight">
+            <span class="first">
+                <span class="title">
+                </span>
+                [<a class="play" data-track="first" href="#">play</a>]
+                [<a class="vote" data-track="first" href="#">vote</a>]
             </span>
-            [<a class="play" data-track="first" href="#">play</a>]
-            [<a class="vote" data-track="first" href="#">vote</a>]
-        </span>
-        vs
-        <span class="second">
-            <span class="title">
+            vs
+            <span class="second">
+                <span class="title">
+                </span>
+                [<a class="play" data-track="second" href="#">play</a>]
+                [<a class="vote" data-track="second" href="#">vote</a>]
             </span>
-            [<a class="play" data-track="second" href="#">play</a>]
-            [<a class="vote" data-track="second" href="#">vote</a>]
-        </span>
+        </div>
+        <div class="votes">
+        </div>
     </body>
 </html>

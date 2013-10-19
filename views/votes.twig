@@ -1,0 +1,7 @@
+<ul>
+    {% for vote in votes %}
+        <li>
+            {{ vote['title'] }} ({{ vote['votes']}})
+        </li>
+    {% endfor %}
+</ul>

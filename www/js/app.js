@@ -6,6 +6,7 @@
         client_id: '4e4115330f6a3238d4631409185ec7a5'
     });
 
+    $('body').on('click', '.vote', vote);
     nextTrack();
 
     function nextTrack() {
@@ -21,13 +22,6 @@
         });
     }
 
-    $('body').on('click', '.vote', function(event) {
-        var element = $(event.currentTarget),
-            id = element.data('track');
-        vote(id);
-        event.preventDefault();
-    });
-
     function play(id, callback) {
         var track = candidates[id];
         $('.' + id + ' img').addClass('playing');
@@ -41,8 +35,11 @@
         });
     }
 
-    function vote(id) {
-        var track = candidates[id];
+    function vote(event) {
+        var element = $(event.currentTarget),
+            id = element.data('track'),
+            track = candidates[id];
+
         $.ajax('/vote', {
             type: 'POST',
             data: {
@@ -56,6 +53,8 @@
                 nextTrack();
             }
         });
+
+        event.preventDefault();
     }
 
     function showVotes(response) {

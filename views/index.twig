@@ -2,6 +2,22 @@
     <head>
         <script src="http://connect.soundcloud.com/sdk.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <style>
+			.playing {
+				-webkit-animation-name: rotate;
+				-webkit-animation-duration: 4s;
+				-webkit-animation-iteration-count: infinite;
+				-webkit-animation-timing-function: linear;
+			}
+			@keyframes rotate {
+				from{ transform: rotate(0deg); }
+				to	{ transform: rotate(360deg); }
+			}
+			@-webkit-keyframes rotate {
+				from{ -webkit-transform: rotate(0deg); }
+				to	{ -webkit-transform: rotate(360deg); }
+			}
+        </style>
     </head>
     <body>
         <script>
@@ -27,33 +43,34 @@
                     });
                 }
 
-
-
                 $('body').on('click', '.play', function(event) {
                     var element = $(event.target),
                         id = element.data('track');
-                    play(candidates[id]);
+                    play(id);
                     return false;
                 });
 
                 $('body').on('click', '.vote', function(event) {
                     var element = $(event.target),
                         id = element.data('track');
-                    vote(candidates[id]);
+                    vote(id);
                     return false;
                 });
 
-                function play(track) {
+                function play(id) {
+                    var track = candidates[id];
+                    $('.' + id + ' img').addClass('playing');
                     SC.stream(track.uri, function(sound) {
                         sound.play();
                         setTimeout(function() {
                             sound.stop();
+                            $('.' + id + ' img').removeClass('playing');
                         }, 10000);
                     });
                 }
 
-                function vote(track) {
-                    console.log(track);
+                function vote(id) {
+                    var track = candidates[id];
                     $.ajax('/vote', {
                         type: 'POST',
                         data: {

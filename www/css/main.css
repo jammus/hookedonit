@@ -41,8 +41,8 @@ h6 {
    background-image: url('/img/logo.svg');
    background-size: 60px;
    background-repeat: no-repeat;
-   padding-left: 70px;
-   font-size: 3em;
+   padding-left: 80px;
+   font-size: 2.45em;
    color: #0c3146;
 }
 
@@ -88,10 +88,6 @@ h6 {
    color: #0d3146;
 }
 
-.prompt {
-    font-size: 1.5em; /*24px*/
-}
-
 .track {
     display: inline-block;
     //width: 400px;
@@ -124,6 +120,7 @@ h6 {
 
 .votes {
     width: 28.2%; /*326px*/
+    border-right: .125em solid #1C85C2
 }
 
 
@@ -132,7 +129,12 @@ h6 {
     padding-left: 2.5em; /*40px*/
 }
 
-.adjust { margin-top: 0; }
+.adjust { margin-top: -8px; }
+
+.prompt {
+    font-size: 1.5em; /*24px*/
+    margin-top: 10px;
+}
 
 .vote {
     position: relative;

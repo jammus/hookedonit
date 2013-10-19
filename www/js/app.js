@@ -26,6 +26,8 @@
 
     function loadTracks() {
         $('.track img').attr('src', '');
+        $('.vote').removeClass('selected');
+        $('.vote').removeClass('played');
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
@@ -39,7 +41,11 @@
 
     function playTracks() {
         stopPlaying();
-        play('first', function() { play('second'); });
+        play('first', function() {
+            play('second', function() {
+                $('.vote').addClass('played');
+            });
+        });
     }
 
     function loadImage(id) {
@@ -73,6 +79,8 @@
             id = element.data('track'),
             track = candidates[id];
 
+        element.addClass('selected');
+
         $.ajax('/vote', {
             type: 'POST',
             data: {
@@ -83,7 +91,9 @@
             }, 
             success: function(response) {
                 showVotes(response);
-                loadTracks();
+                setTimeout(function() {
+                    loadTracks();
+                }, 2000);
             }
         });
 

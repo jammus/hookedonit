@@ -154,11 +154,27 @@ h6 {
 }
 
 .first .vote {
-    background-image: url('/img/song-left.svg');
+    background-image: url('/img/song-left-1.svg');
+}
+
+.first .vote.played {
+    background-image: url('/img/song-left-2.svg');
+}
+
+.first .vote.selected {
+    background-image: url('/img/song-left-3.svg');
+}
+
+.second .vote.played {
+    background-image: url('/img/song-right-2.svg');
+}
+
+.second .vote.selected {
+    background-image: url('/img/song-right-3.svg');
 }
 
 .second .vote {
-    background-image: url('/img/song-right.svg');
+    background-image: url('/img/song-right-1.svg');
     background-position: 40px;
 }
 

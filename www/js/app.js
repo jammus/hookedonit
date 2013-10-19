@@ -19,22 +19,6 @@
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
-            lastfm.track.search(
-                { track: candidates['first'].title },
-                {
-                    success: function(data) {
-                        console.log(data);
-                        var results = data.results.trackmatches.track;
-                        var imageUrl = candidates['first'].artwork_url;
-                        if (results.length && results[0].image && results[0].image[3]) {
-                            imageUrl = results[0].image[3]['#text'];
-                            console.log(imageUrl);
-                        }
-                        $('.first img').attr('src', imageUrl);
-                    }
-                }
-            );
-
             $('.first .title').html(candidates['first'].title);
             loadImage('first');
             $('.second .title').html(candidates['second'].title);
@@ -52,7 +36,6 @@
                     var imageUrl = candidates[id].artwork_url;
                     if (results.length && results[0].image && results[0].image[3]) {
                         imageUrl = results[0].image[3]['#text'];
-                        console.log(imageUrl);
                     }
                     $('.' + id + ' img').attr('src', imageUrl);
                 }

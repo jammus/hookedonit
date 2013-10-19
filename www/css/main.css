@@ -1,18 +1,68 @@
 body {
     background-color: #1e8ccc;
     color: #fff;
-    font-family: Helvetica, sans;
+    font-family: 'Effra', 'Myriad Pro', Helvetica, sans;
+    padding: 2.5em 1.25em;
+    -webkit-font-smoothing: antialiased;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { 
+    font-weight: normal; 
+    font-size: 1em;
+    margin: 0;
+    line-height: 1;
+}
+
+.container {
+    width: 1152px;
+}
+
+.items {
+    margin: 0;
+    padding: 0;
+    margin-left: -2.5em;
+}
+    
+    .items li {
+        padding: 1em 0 1em 1.25em;
+    }
+    .items li + li {
+        border-top: .125em solid #1c85c2;
+    }
+
+.logo {
+   text-transform: uppercase;
+   font-weight: bold; 
+}
+
+.headline {
+    font-size: 3.75em; /*60px*/
+    font-weight: 300;
+}
+
+.subhead {
+    text-transform: uppercase;   
+}
+
+.accent {
+   color: #0d3146;
+}
+
 .track {
     display: inline-block;
-    width: 400px;
+    //width: 400px;
     text-align: center;
 }
 
 .track img {
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     position: absolute;
     top: 80px;
 }
@@ -25,10 +75,22 @@ body {
     right: 150px;
 }
 
-.votes,
-.fight {
-    display: inline-block;
+.block {
+    float: left;
+    box-sizing: border-box;
 }
+
+.votes {
+    width: 28.2%; /*326px*/
+}
+
+
+.fight {
+    width: 71.7%; /*827px*/
+    padding-left: 2.5em; /*40px*/
+}
+
+.condensed { margin: 0; }
 
 .vote {
     position: relative;
@@ -45,10 +107,22 @@ body {
 .first .vote {
     background-image: url('/img/song-left.svg');
 }
+
 .second .vote {
     background-image: url('/img/song-right.svg');
     background-position: 70px;
 }
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
 .playing {
     -webkit-animation-name: rotate;
     -webkit-animation-duration: 4s;

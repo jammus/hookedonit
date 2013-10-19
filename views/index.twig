@@ -1,14 +1,25 @@
+<!DOCTYPE html>
 <html>
     <head>
         <script src="http://connect.soundcloud.com/sdk.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="//use.typekit.net/ohi3efu.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
         <link href="/css/main.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <div class="votes">
+    <div class="container cf" role="application">
+        <aside class="block votes">
+            <header>
+                <h1 class="logo">Hooked On It.</h1>
+            </header>
+
             {{ include('votes.twig') }}
-        </div>
-        <div class="fight">
+        </aside>
+
+        <section class="block fight">
+            <p class="condensed">Listen to both songs for 15 seconds.</p>
+            <p class="headline condensed">Pick the better song</p>
             <div class="first track">
                 <a class="vote" data-track="first" href="#">
                     <img src="" />
@@ -23,7 +34,9 @@
                 <div class="title">
                 </div>
             </div>
-        </div>
-        <script src="/js/app.js"></script>
+        </section>
+    </div>
+    
+    <script src="/js/app.js"></script>
     </body>
 </html>

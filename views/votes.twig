@@ -1,7 +1,9 @@
-<ol>
+<h2 class="subhead">Top Songs <span>in genre</span></h2>
+<ol class="items">
     {% for vote in votes %}
         <li>
-            {{ vote['title'] }} ({{ vote['votes']}})
+            <span class="title">{{ vote['title'] }}</span>
+            <span class="artist">({{ vote['votes']}})</span>
         </li>
     {% endfor %}
 </ol>

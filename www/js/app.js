@@ -1,7 +1,8 @@
 (function() {
     var genre = 'indie',
         candidates = { },
-        currentSound = null;
+        currentSound = null,
+        playTimeout = null;
 
     SC.initialize({
         client_id: '4e4115330f6a3238d4631409185ec7a5'
@@ -29,7 +30,7 @@
         SC.stream(track.uri, function(sound) {
             currentSound = sound;
             currentSound.play();
-            setTimeout(function() {
+            playTimeout = setTimeout(function() {
                 stopPlaying();
                 callback && callback();
             }, 10000);
@@ -37,6 +38,7 @@
     }
 
     function stopPlaying() {
+        clearTimeout(playTimeout);
         currentSound && currentSound.stop();
         currentSound = null;
         $('.track img').removeClass('playing');

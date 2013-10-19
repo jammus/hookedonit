@@ -28,7 +28,8 @@
         <script>
             (function() {
                 var genre = 'indie',
-                    candidates = { };
+                    candidates = { },
+                    genres = [ 'hip hop', 'alternative', 'indie', 'electronic', 'house', 'drum & bass' ];
 
                 SC.initialize({
                     client_id: '4e4115330f6a3238d4631409185ec7a5'
@@ -52,14 +53,14 @@
                     var element = $(event.target),
                         id = element.data('track');
                     play(id);
-                    return false;
+                    event.preventDefault();
                 });
 
                 $('body').on('click', '.vote', function(event) {
                     var element = $(event.target),
                         id = element.data('track');
                     vote(id);
-                    return false;
+                    event.preventDefault();
                 });
 
                 function play(id) {
@@ -114,6 +115,7 @@
             </div>
         </div>
         <div class="votes">
+            {{ include('votes.twig') }}
         </div>
     </body>
 </html>

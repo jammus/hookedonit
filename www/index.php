@@ -10,36 +10,63 @@ use Symfony\Component\HttpFoundation\Request;
 $app = new Application(); 
 $app['debug'] = true;
 
+$votes = new Votes(__DIR__ . '/../data/votes.dat');
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
 
-$app->get('/', function (Application $app) {
-    return $app['twig']->render('index.twig');
+$app->get('/', function (Application $app) use($votes) {
+    $ranking = $votes->votesFor('indie');
+    return $app['twig']->render('index.twig', array('votes' => $ranking));
 });
 
-$app->post('/vote', function (Request $request, Application $app) {
+$app->post('/vote', function (Request $request, Application $app) use($votes) {
     $genre = $request->get('genre');
     $id = $request->get('id');
     $title = $request->get('title');
     $uri = $request->get('uri');
-    $data = unserialize(file_get_contents(__DIR__ . '/../data/votes.dat'));
-    $data[$genre] ?: array();
-    if ( ! isset($data[$genre][$id])) {
-        $entry = array(
-            'id' => $id,
-            'title' => $title,
-            'uri' => $uri,
-            'votes' => 0
-        );
-        $data[$genre][$id] = $entry;
-    }
-    $data[$genre][$id]['votes']++;
-    file_put_contents(__DIR__ . '/../data/votes.dat', serialize($data));
-    $votes = usort($data[$genre], function($a, $b) {
-        return ($a['votes'] < $b['votes']) ? 1 : -1;
-    });
-    return $app['twig']->render('votes.twig', array('votes' => $data[$genre]));
+    $ranking = $votes->vote($genre, $id, $title, $uri);
+    return $app['twig']->render('votes.twig', array('votes' => $ranking));
 });
 
 $app->run();
+
+class Votes
+{
+    private $filename;
+
+    private $data;
+
+    public function __construct($filename)
+    {
+        $this->filename = $filename;
+        $this->data = unserialize(file_get_contents($this->filename));
+    }
+
+    public function vote($genre, $id, $title, $uri)
+    {
+        $this->data[$genre] ?: array();
+        if ( ! isset($this->data[$genre][$id])) {
+            $entry = array(
+                'id' => $id,
+                'title' => $title,
+                'uri' => $uri,
+                'votes' => 0
+            );
+            $this->data[$genre][$id] = $entry;
+        }
+        $this->data[$genre][$id]['votes']++;
+        file_put_contents(__DIR__ . '/../data/votes.dat', serialize($this->data));
+        return $this->votesFor($genre);
+    }
+
+    public function votesFor($genre)
+    {
+        $votes = $this->data[$genre];
+        usort($votes, function($a, $b) {
+            return ($a['votes'] < $b['votes']) ? 1 : -1;
+        });
+        return $votes;
+    }
+}

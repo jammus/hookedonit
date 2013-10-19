@@ -23,18 +23,20 @@ $app->post('/vote', function (Request $request, Application $app) {
     $id = $request->get('id');
     $title = $request->get('title');
     $uri = $request->get('uri');
-    $votes = array();
-    if ( ! isset($votes[$id])) {
+    $data = unserialize(file_get_contents(__DIR__ . '/../data/votes.dat'));
+    $data[$genre] ?: array();
+    if ( ! isset($data[$genre][$id])) {
         $entry = array(
             'id' => $id,
             'title' => $title,
             'uri' => $uri,
             'votes' => 0
         );
-        $votes[$id] = $entry;
+        $data[$genre][$id] = $entry;
     }
-    $votes[$id]['votes']++;
-    return $app['twig']->render('votes.twig', array('votes' => $votes));
+    $data[$genre][$id]['votes']++;
+    file_put_contents(__DIR__ . '/../data/votes.dat', serialize($data));
+    return $app['twig']->render('votes.twig', array('votes' => $data[$genre]));
 });
 
 $app->run();

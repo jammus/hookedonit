@@ -1,5 +1,5 @@
 (function() {
-    var genre = 'indie',
+    var genre = $(document.body).data('genre'),
         candidates = { },
         currentSound = null,
         playTimeout = null;
@@ -13,15 +13,15 @@
     });
 
     $('body').on('click', '.vote', vote);
-    nextTrack();
+    loadTracks();
 
-    function nextTrack() {
+    function loadTracks() {
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
             $('.first .title').html(candidates['first'].title);
-            loadImage('first');
             $('.second .title').html(candidates['second'].title);
+            loadImage('first');
             loadImage('second');
             play('first', function() { play('second'); });
         });
@@ -61,6 +61,7 @@
         currentSound && currentSound.stop();
         currentSound = null;
         $('.track img').removeClass('playing');
+        $('.track img').attr('src', '');
     }
 
     function vote(event) {
@@ -79,7 +80,7 @@
             }, 
             success: function(response) {
                 showVotes(response);
-                nextTrack();
+                loadTracks();
             }
         });
 

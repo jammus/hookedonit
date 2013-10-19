@@ -16,9 +16,11 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
 
-$app->get('/', function (Application $app) use($votes) {
+$app->get('/', function (Request $request, Application $app) use($votes) {
     $ranking = $votes->votesFor('indie');
-    return $app['twig']->render('index.twig', array('votes' => $ranking));
+    $genres = array('indie', 'hip hop', 'electronic', 'alternative', 'house');
+    $genre = $request->get('genre') ?: $genres[0];
+    return $app['twig']->render('index.twig', array('votes' => $ranking, 'genres' => $genres, 'selectedGenre' => $genre));
 });
 
 $app->post('/vote', function (Request $request, Application $app) use($votes) {

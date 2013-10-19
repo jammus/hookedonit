@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <script src="http://connect.soundcloud.com/sdk.js"></script>
+        <script src="jquery.min.js"></script>
+    </head>
+    <body>
+        <script>
+            (function() {
+                var genre = 'indie',
+                    candidates = { };
+
+                SC.initialize({
+                    client_id: '4e4115330f6a3238d4631409185ec7a5'
+                });
+
+                nextTrack();
+
+                function nextTrack() {
+                    SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
+                        candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)],
+                        candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
+
+                        $('.first .title').html(candidates['first'].title);
+                        $('.second .title').html(candidates['second'].title);
+                    });
+                }
+
+
+
+                $('body').on('click', '.play', function(event) {
+                    var element = $(event.target),
+                        id = element.data('track');
+                    play(candidates[id]);
+                    return false;
+                });
+
+                $('body').on('click', '.vote', function(event) {
+                    var element = $(event.target),
+                        id = element.data('track');
+                    vote(candidates[id]);
+                    return false;
+                });
+
+                function play(track) {
+                    SC.stream(track.uri, function(sound) {
+                        sound.play();
+                        setTimeout(function() {
+                            sound.stop();
+                        }, 10000);
+                    });
+                }
+
+                function vote(track) {
+                    console.log(track);
+                    $.ajax('/vote', {
+                        type: 'POST',
+                        data: {
+                            track: track.id
+                        }, 
+                        complete: nextTrack
+                    });
+                }
+            })();
+        </script>
+        <span class="first">
+            <span class="title">
+            </span>
+            [<a class="play" data-track="first" href="#">play</a>]
+            [<a class="vote" data-track="first" href="#">vote</a>]
+        </span>
+        vs
+        <span class="second">
+            <span class="title">
+            </span>
+            [<a class="play" data-track="second" href="#">play</a>]
+            [<a class="vote" data-track="second" href="#">vote</a>]
+        </span>
+    </body>
+</html>

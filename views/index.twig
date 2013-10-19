@@ -3,6 +3,11 @@
         <script src="http://connect.soundcloud.com/sdk.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <style>
+            .track img {
+                border-radius: 100px;
+                -webkit-border-radius: 100px;
+                -moz-border-radius: 100px;
+            }
 			.playing {
 				-webkit-animation-name: rotate;
 				-webkit-animation-duration: 4s;
@@ -92,7 +97,7 @@
             })();
         </script>
         <div class="fight">
-            <div class="first">
+            <div class="first track">
                 <img src="" />
                 <span class="title">
                 </span>
@@ -100,7 +105,7 @@
                 [<a class="vote" data-track="first" href="#">vote</a>]
             </div>
             vs
-            <div class="second">
+            <div class="second track">
                 <img src="" />
                 <span class="title">
                 </span>

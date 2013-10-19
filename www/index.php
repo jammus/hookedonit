@@ -63,7 +63,7 @@ class Votes
 
     public function votesFor($genre)
     {
-        $votes = $this->data[$genre];
+        $votes = isset($this->data[$genre]) ? $this->data[$genre] : array();
         usort($votes, function($a, $b) {
             return ($a['votes'] < $b['votes']) ? 1 : -1;
         });

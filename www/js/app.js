@@ -11,7 +11,7 @@
 
     function nextTrack() {
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
-            candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)],
+            candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
 
             $('.first .title').html(candidates['first'].title);

@@ -67,6 +67,6 @@ class Votes
         usort($votes, function($a, $b) {
             return ($a['votes'] < $b['votes']) ? 1 : -1;
         });
-        return $votes;
+        return array_slice($votes, 0, 10);
     }
 }

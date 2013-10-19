@@ -2,8 +2,8 @@
 <ol class="items">
     {% for vote in votes %}
         <li>
-            <span class="title">{{ vote['title'] }}</span>
-            <span class="artist">({{ vote['votes']}})</span>
+            <span class="label">{{ vote['title'] }}</span>
+            <span class="artist">({{ vote['votes']}})
         </li>
     {% endfor %}
 </ol>

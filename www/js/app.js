@@ -8,6 +8,10 @@
         client_id: '4e4115330f6a3238d4631409185ec7a5'
     });
 
+    var lastfm = new LastFM({
+        apiKey: 'b91ccadc8e59cee1bbf7c86ed0d6a70c'
+    });
+
     $('body').on('click', '.vote', vote);
     nextTrack();
 
@@ -15,13 +19,45 @@
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
+            lastfm.track.search(
+                { track: candidates['first'].title },
+                {
+                    success: function(data) {
+                        console.log(data);
+                        var results = data.results.trackmatches.track;
+                        var imageUrl = candidates['first'].artwork_url;
+                        if (results.length && results[0].image && results[0].image[3]) {
+                            imageUrl = results[0].image[3]['#text'];
+                            console.log(imageUrl);
+                        }
+                        $('.first img').attr('src', imageUrl);
+                    }
+                }
+            );
 
             $('.first .title').html(candidates['first'].title);
-            $('.first img').attr('src', candidates['first'].artwork_url);
+            loadImage('first');
             $('.second .title').html(candidates['second'].title);
-            $('.second img').attr('src', candidates['second'].artwork_url);
+            loadImage('second');
             play('first', function() { play('second'); });
         });
+    }
+
+    function loadImage(id) {
+        lastfm.track.search(
+            { track: candidates[id].title },
+            {
+                success: function(data) {
+                    var results = data.results.trackmatches.track;
+                    var imageUrl = candidates[id].artwork_url;
+                    if (results.length && results[0].image && results[0].image[3]) {
+                        imageUrl = results[0].image[3]['#text'];
+                        console.log(imageUrl);
+                    }
+                    $('.' + id + ' img').attr('src', imageUrl);
+                }
+            }
+        );
     }
 
     function play(id, callback) {

@@ -188,6 +188,8 @@ a.vote.played {
     font-size: 1.625em; /*26px*/
     font-weight: bold;
     margin-top: 1.153846154em; /*30px*/
+    color: #fff;
+    text-decoration: none;
 }
 
 .label {

@@ -32,7 +32,9 @@
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
             $('.first .title').html(candidates['first'].title);
+            $('.first .title').attr('href', candidates['first'].permalink_url);
             $('.second .title').html(candidates['second'].title);
+            $('.second .title').attr('href', candidates['second'].permalink_url);
             loadImage('first');
             loadImage('second');
             playTracks();

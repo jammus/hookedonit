@@ -3,10 +3,53 @@
         <script src="http://connect.soundcloud.com/sdk.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <style>
+            body {
+                background-color: #1e8ccc;
+                color: #fff;
+                font-family: Helvetica, sans;
+            }
+            .track {
+                display: inline-block;
+                width: 400px;
+                text-align: center;
+            }
             .track img {
                 border-radius: 100px;
                 -webkit-border-radius: 100px;
                 -moz-border-radius: 100px;
+                position: absolute;
+                top: 80px;
+            }
+
+            .first img {
+                left: 150px;
+            }
+
+            .second img {
+                right: 150px;
+            }
+
+            .votes,
+            .fight {
+                display: inline-block;
+            }
+
+            .vote {
+                position: relative;
+                width: 390px;
+                height: 249px;
+                display: inline-block;
+                background-repeat: no-repeat;
+            }
+            .title {
+                margin-left: 20px;
+            }
+            .first .vote {
+                background-image: url('/img/song-left.svg');
+            }
+            .second .vote {
+                background-image: url('/img/song-right.svg');
+                background-position: 70px;
             }
 			.playing {
 				-webkit-animation-name: rotate;
@@ -97,25 +140,26 @@
                 }
             })();
         </script>
-        <div class="fight">
-            <div class="first track">
-                <img src="" />
-                <span class="title">
-                </span>
-                [<a class="play" data-track="first" href="#">play</a>]
-                [<a class="vote" data-track="first" href="#">vote</a>]
-            </div>
-            vs
-            <div class="second track">
-                <img src="" />
-                <span class="title">
-                </span>
-                [<a class="play" data-track="second" href="#">play</a>]
-                [<a class="vote" data-track="second" href="#">vote</a>]
-            </div>
-        </div>
         <div class="votes">
             {{ include('votes.twig') }}
+        </div>
+        <div class="fight">
+            <div class="first track">
+                <a class="vote" data-track"first" href="#">
+                    <img src="" />
+                </a>
+                <div class="title">
+                </div>
+                [<a class="play" data-track="first" href="#">play</a>]
+            </div>
+            <div class="second track">
+                <a class="vote" data-track"second" href="#">
+                    <img src="" />
+                </a>
+                <div class="title">
+                </div>
+                [<a class="play" data-track="second" href="#">play</a>]
+            </div>
         </div>
     </body>
 </html>

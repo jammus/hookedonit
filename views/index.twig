@@ -13,6 +13,7 @@
                 width: 400px;
                 text-align: center;
             }
+
             .track img {
                 border-radius: 100px;
                 -webkit-border-radius: 100px;
@@ -41,9 +42,11 @@
                 display: inline-block;
                 background-repeat: no-repeat;
             }
+
             .title {
                 margin-left: 20px;
             }
+
             .first .vote {
                 background-image: url('/img/song-left.svg');
             }
@@ -89,15 +92,9 @@
                         $('.first img').attr('src', candidates['first'].artwork_url);
                         $('.second .title').html(candidates['second'].title);
                         $('.second img').attr('src', candidates['second'].artwork_url);
+                        play('first', function() { play('second'); });
                     });
                 }
-
-                $('body').on('click', '.play', function(event) {
-                    var element = $(event.target),
-                        id = element.data('track');
-                    play(id);
-                    event.preventDefault();
-                });
 
                 $('body').on('click', '.vote', function(event) {
                     var element = $(event.target),
@@ -106,7 +103,7 @@
                     event.preventDefault();
                 });
 
-                function play(id) {
+                function play(id, callback) {
                     var track = candidates[id];
                     $('.' + id + ' img').addClass('playing');
                     SC.stream(track.uri, function(sound) {
@@ -114,6 +111,7 @@
                         setTimeout(function() {
                             sound.stop();
                             $('.' + id + ' img').removeClass('playing');
+                            callback && callback();
                         }, 10000);
                     });
                 }
@@ -150,7 +148,6 @@
                 </a>
                 <div class="title">
                 </div>
-                [<a class="play" data-track="first" href="#">play</a>]
             </div>
             <div class="second track">
                 <a class="vote" data-track"second" href="#">
@@ -158,7 +155,6 @@
                 </a>
                 <div class="title">
                 </div>
-                [<a class="play" data-track="second" href="#">play</a>]
             </div>
         </div>
     </body>

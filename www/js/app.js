@@ -13,6 +13,11 @@
     });
 
     $('body').on('click', '.vote', vote);
+
+    $('select').change(function() {
+        $(this).parent('form').submit();
+    });
+
     loadTracks();
 
     function loadTracks() {

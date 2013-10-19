@@ -46,7 +46,7 @@ class Votes
 
     public function vote($genre, $id, $title, $uri)
     {
-        $this->data[$genre] ?: array();
+        $this->data[$genre] = isset($this->data[$genre]) ? $this->data[$genre] : array();
         if ( ! isset($this->data[$genre][$id])) {
             $entry = array(
                 'id' => $id,

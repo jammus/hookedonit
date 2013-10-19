@@ -21,6 +21,7 @@
     loadTracks();
 
     function loadTracks() {
+        $('.track img').attr('src', '');
         SC.get('/tracks', { genres: genre, limit: 50 }, function(tracks) {
             candidates['first'] = tracks[Math.floor(Math.random() * tracks.length)];
             candidates['second'] = tracks[Math.floor(Math.random() * tracks.length)];
@@ -57,7 +58,7 @@
             playTimeout = setTimeout(function() {
                 stopPlaying();
                 callback && callback();
-            }, 10000);
+            }, 15000);
         });
     }
 
@@ -66,7 +67,6 @@
         currentSound && currentSound.stop();
         currentSound = null;
         $('.track img').removeClass('playing');
-        $('.track img').attr('src', '');
     }
 
     function vote(event) {

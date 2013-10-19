@@ -74,6 +74,9 @@
     }
 
     function vote(event) {
+        if ( ! $('.vote').hasClass('played')) {
+            return false;
+        }
         stopPlaying();
         var element = $(event.currentTarget),
             id = element.data('track'),

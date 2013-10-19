@@ -17,9 +17,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->get('/', function (Request $request, Application $app) use($votes) {
-    $ranking = $votes->votesFor('indie');
     $genres = array('indie', 'hip hop', 'electronic', 'alternative', 'house');
     $genre = $request->get('genre') ?: $genres[0];
+    $ranking = $votes->votesFor($genre);
     return $app['twig']->render('index.twig', array('votes' => $ranking, 'genres' => $genres, 'selectedGenre' => $genre));
 });
 

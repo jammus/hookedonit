@@ -88,7 +88,7 @@
     }
 
     function showVotes(response) {
-        $('.votes').html(response);
+        $('.results').html(response);
     }
 })();
 

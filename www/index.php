@@ -36,6 +36,9 @@ $app->post('/vote', function (Request $request, Application $app) {
     }
     $data[$genre][$id]['votes']++;
     file_put_contents(__DIR__ . '/../data/votes.dat', serialize($data));
+    $votes = usort($data[$genre], function($a, $b) {
+        return ($a['votes'] < $b['votes']) ? 1 : -1;
+    });
     return $app['twig']->render('votes.twig', array('votes' => $data[$genre]));
 });
 

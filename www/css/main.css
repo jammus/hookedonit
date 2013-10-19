@@ -48,15 +48,15 @@ ol > li:before {
     content: counter(customlistcounter) " ";
     font-weight: bold;
     float: left;
-    width: 2.5em;
-    height: 2.5em;
+    width: 2em;
+    height: 2em;
     position: absolute;
     border: 3px solid #3494cd;
     border-radius: 50%;
     padding-left: 1px;
     box-sizing: border-box;
-    line-height: 33px;
-    margin-top: -10px;
+    line-height: 26px;
+    margin-top: -5px;
     text-align: center;
 }
 
@@ -112,6 +112,7 @@ ol {
 
 .subhead {
     text-transform: uppercase;   
+    font-weight: bold;
 }
 
 .accent {

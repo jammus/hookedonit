@@ -97,7 +97,7 @@
                 }
 
                 $('body').on('click', '.vote', function(event) {
-                    var element = $(event.target),
+                    var element = $(event.currentTarget),
                         id = element.data('track');
                     vote(id);
                     event.preventDefault();
@@ -143,14 +143,14 @@
         </div>
         <div class="fight">
             <div class="first track">
-                <a class="vote" data-track"first" href="#">
+                <a class="vote" data-track="first" href="#">
                     <img src="" />
                 </a>
                 <div class="title">
                 </div>
             </div>
             <div class="second track">
-                <a class="vote" data-track"second" href="#">
+                <a class="vote" data-track="second" href="#">
                     <img src="" />
                 </a>
                 <div class="title">
